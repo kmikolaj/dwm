@@ -1,0 +1,34 @@
+--- a/dwm.c	2012-02-12 10:56:30.201137247 +0200
++++ b/dwm.c	2012-02-12 10:56:30.204137247 +0200
+@@ -90,7 +90,7 @@ struct Client {
+ 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
+ 	int bw, oldbw;
+ 	unsigned int tags;
+-	Bool isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
++	Bool isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, needresize;
+ 	Client *next;
+ 	Client *snext;
+ 	Monitor *mon;
+@@ -657,6 +657,8 @@ configurerequest(XEvent *e) {
+ 				configure(c);
+ 			if(ISVISIBLE(c))
+ 				XMoveResizeWindow(dpy, c->win, c->x, c->y, c->w, c->h);
++			else
++				c->needresize = True;
+ 		}
+ 		else
+ 			configure(c);
+@@ -1708,7 +1710,12 @@ showhide(Client *c) {
+ 	if(!c)
+ 		return;
+ 	if(ISVISIBLE(c)) { /* show clients top down */
+-		XMoveWindow(dpy, c->win, c->x, c->y);
++		if(c->needresize) {
++			c->needresize = False;
++			XMoveResizeWindow(dpy, c->win, c->x, c->y, c->w, c->h);
++		} else {
++			XMoveWindow(dpy, c->win, c->x, c->y);
++		}
+ 		if((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
+ 			resize(c, c->x, c->y, c->w, c->h, False);
+ 		showhide(c->snext);

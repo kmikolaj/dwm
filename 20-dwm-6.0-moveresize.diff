@@ -1,0 +1,36 @@
+--- a/dwm.c	2012-04-11 23:35:15.000000000 +0200
++++ b/dwm.c	2012-04-11 23:42:08.000000000 +0200
+@@ -280,6 +280,7 @@
+ static void settagsatom(Window w, unsigned int tags);
+ static void focusurgent(const Arg *arg);
+ static void savefloat(Client *c);
++static void moveresize(const Arg *arg);
+ 
+ /* variables */
+ static const char broken[] = "broken";
+@@ -2620,6 +2621,25 @@
+ 	c->sfh = c->h;
+ }
+
++static void
++moveresize(const Arg *arg) {
++
++XEvent ev;
++Monitor *m = selmon;
++
++if(!(m->sel && arg && arg->v && m->sel->isfloating))
++    return;
++
++resize(m->sel, m->sel->x + ((int *)arg->v)[0],
++    m->sel->y + ((int *)arg->v)[1],
++    m->sel->w + ((int *)arg->v)[2],
++    m->sel->h + ((int *)arg->v)[3],
++    True);
++
++while(XCheckMaskEvent(dpy, EnterWindowMask, &ev));
++
++}
++
+ int
+ main(int argc, char *argv[]) {
+ 	if(argc == 2 && !strcmp("-v", argv[1]))
