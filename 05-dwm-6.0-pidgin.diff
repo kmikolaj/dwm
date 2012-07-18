@@ -8,7 +8,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -2349,6 +2350,56 @@ gaplessgrid(Monitor *m) {
+@@ -2349,6 +2350,57 @@ gaplessgrid(Monitor *m) {
  		}
  	}
  }
@@ -19,7 +19,8 @@
 +	Client *c, *bl = NULL;
 +
 +	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++)
-+		if(strstr(c->name, "Lista znajomych"))
++		if(strstr(c->name, "Lista znajomych") ||
++			strstr(c->name, "Buddy List"))
 +			bl = c;
 +	if(n == 0)
 +		return;

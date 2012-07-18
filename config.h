@@ -2,15 +2,17 @@
 
 /* appearance */
 static const char font[]            = "-*-stlarch-*-*-*-*-12-*-*-*-*-*-*-*" "," "-*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1";
+//static const char font[]            = "xft:Envy Code R:pixelsize=13";
 static const char colors[MAXCOLORS][ColLast][8] = {
-	{ "#444444", "#BBBBBB", "#1A1A1A" }, /* 1 = normal */
-	{ "#005577", "#EEEEEE", "#005577" }, /* 2 = selected */
+	{ "#444444", "#657B83", "#073642" }, /* 1 = normal */
+	{ "#B58900", "#B58900", "#073642" }, /* 2 = selected */
 	{ "#FF2882", "#FFFFFF", "#FF2882" }, /* 3 = urgent */
-	{ "#444444", "#93D44F", "#1A1A1A" }, /* 4 = green */
-	{ "#444444", "#EAB93D", "#1A1A1A" }, /* 5 = yellow */
-	{ "#444444", "#89B6E2", "#1A1A1A" }, /* 6 = cyan */
-	{ "#444444", "#EEEEEE", "#1A1A1A" }, /* 7 = magenta */
-	{ "#444444", "#899CA1", "#1A1A1A" }, /* 8 = grey unusable */
+	{ "#444444", "#859900", "#073642" }, /* 4 = green */
+	{ "#444444", "#B58900", "#073642" }, /* 5 = yellow */
+	{ "#444444", "#2AA198", "#073642" }, /* 6 = cyan */
+	{ "#444444", "#D33682", "#073642" }, /* 7 = magenta */
+	{ "#444444", "#6C71C4", "#073642" }, /* 8 = unusable */
+	{ "#444444", "#FDF6E3", "#073642" }, /* 9 = white */
 };
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 24;       /* snap pixel */
@@ -21,47 +23,48 @@ static const Bool topbar            = True;     /* False means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 
 static const Rule rules[] = {
-	/* class                    instance            title               tags mask     isfloating   iscentred    monitor */
-	{ "URxvt",                  "alsamixer",        NULL,               0,            True,        True,        -1 },
-	{ "Display",                NULL,               NULL,               0,            True,        True,        -1 },
-	{ "XFontSel",               NULL,               NULL,               0,            True,        True,        -1 },
-	//{ "MPlayer",                NULL,               NULL,               0,            True,        True,        -1 },
-	//{ "mplayer2",               NULL,               NULL,               0,            True,        True,        -1 },
-	{ "Galculator",             NULL,               NULL,               0,            True,        True,        -1 },
-	{ "Gcolor2",                NULL,               NULL,               0,            True,        True,        -1 },
-	{ "Pystopwatch",            NULL,               NULL,               0,            True,        True,        -1 },
-	{ "URxvt",                  "tmux",             NULL,               1,            False,       False,       -1 }, 
-	{ "URxvt",                  "mutt",             NULL,               2,            False,       False,       -1 }, 
-	{ "Claws-mail",             NULL,               NULL,               2,            False,       False,       -1 },
-	{ "Firefox",                NULL,               NULL,               2,            True,        True,        -1 },
-	{ "Firefox",                "Navigator",        NULL,               2,            False,       False,       -1 },
-	{ "Opera",                  NULL,               NULL,               2,            False,       False,       -1 },
-	{ "Vimprobable2",           NULL,               NULL,               2,            False,       False,       -1 },
-	{ "luakit",                 NULL,               NULL,               2,            False,       False,       -1 },
-	{ "Sublime_text",           NULL,               NULL,               4,            False,       False,       -1 },
-	{ "Geany",                  NULL,               NULL,               4,            False,       False,       -1 },
-	{ "java-lang-Thread",       NULL,               "NetBeans IDE 6.1", 4,            False,       False,       -1 },
-	{ "Gvim",                   NULL,               NULL,               4,            False,       False,       -1 },
-	{ "Qtcreator",              NULL,               NULL,               4,            False,       False,       -1 },
-	{ "Viewnior",               NULL,               NULL,               8,            False,       False,       -1 },
-	{ "Mirage",                 NULL,               NULL,               8,            False,       False,       -1 },
-	{ "Geeqie",                 NULL,               NULL,               8,            False,       False,       -1 },
-	{ "Deadbeef",               NULL,               NULL,               8,            False,       False,       -1 },
-	{ "Avidemux",               NULL,               NULL,               8,            False,       False,       -1 },
-	{ "Puddletag",              NULL,               NULL,               8,            False,       False,       -1 },
-	{ "Audacity",               NULL,               NULL,               8,            False,       False,       -1 },
-	{ "de-hattrickorganizer-HO",NULL,               NULL,               8,            False,       False,       -1 }, 
-	{ "Pidgin",                 NULL,               NULL,               16,           False,       False,       -1 },
-	{ "Kadu",                   NULL,               NULL,               16,           False,       False,       -1 },
-	{ "Gimp",                   NULL,               NULL,               32,           True,        False,       -1 },
-	{ "Mtpaint",                NULL,               NULL,               32,           False,       False,       -1 },
-	{ "Xfe",                    NULL,               NULL,               64,           False,       False,       -1 },
-	{ "Lyx",                    NULL,               NULL,               64,           False,       False,       -1 },
-	{ "libreoffice-writer",     NULL,               NULL,               64,           False,       False,       -1 },
-	{ "libreoffice-calc",       NULL,               NULL,               64,           False,       False,       -1 },
-	{ "libreoffice-math",       NULL,               NULL,               64,           False,       False,       -1 },
-	{ "libreoffice-impress",    NULL,               NULL,               64,           False,       False,       -1 },
-	{ NULL,                     NULL,               "LibreOffice",      64,           False,       False,       -1 },
+	/* class                    instance            title               tags mask         isfloating   iscentred    monitor */
+	{ "URxvt",                  "alsamixer",        NULL,                    0,           True,        True,        -1 },
+	{ "Display",                NULL,               NULL,                    0,           True,        True,        -1 },
+	{ "XFontSel",               NULL,               NULL,                    0,           True,        True,        -1 },
+	//{ "MPlayer",                NULL,               NULL,                  0,           True,        True,        -1 },
+	//{ "mplayer2",               NULL,               NULL,                  0,           True,        True,        -1 },
+	{ "Galculator",             NULL,               NULL,                    0,           True,        True,        -1 },
+	{ "Gcolor2",                NULL,               NULL,                    0,           True,        True,        -1 },
+	{ "Pystopwatch",            NULL,               NULL,                    0,           True,        True,        -1 },
+	{ "URxvt",                  "tmux",             NULL,               1 << 0,           False,       False,       -1 }, 
+	{ "URxvt",                  "mutt",             NULL,               1 << 1,           False,       False,       -1 }, 
+	{ "Claws-mail",             NULL,               NULL,               1 << 1,           False,       False,       -1 },
+	{ "Firefox",                NULL,               NULL,               1 << 1,           True,        True,        -1 },
+	{ "Firefox",                "Navigator",        NULL,               1 << 1,           False,       False,       -1 },
+	{ "Opera",                  NULL,               NULL,               1 << 1,           False,       False,       -1 },
+	{ "Dwb",                    NULL,               NULL,               1 << 1,           False,       False,       -1 },
+	{ "luakit",                 NULL,               NULL,               1 << 1,           False,       False,       -1 },
+	{ "Sublime_text",           NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "Geany",                  NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "java-lang-Thread",       NULL,               "NetBeans IDE 6.1", 1 << 2,           False,       False,       -1 },
+	{ "Gvim",                   NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "Qtcreator",              NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "Viewnior",               NULL,               NULL,               1 << 3,           False,       False,       -1 },
+	{ "Mirage",                 NULL,               NULL,               1 << 3,           False,       False,       -1 },
+	{ "Geeqie",                 NULL,               NULL,               1 << 3,           False,       False,       -1 },
+	{ "Deadbeef",               NULL,               NULL,               1 << 3,           False,       False,       -1 },
+	{ "Avidemux",               NULL,               NULL,               1 << 3,           False,       False,       -1 },
+	{ "Puddletag",              NULL,               NULL,               1 << 3,           False,       False,       -1 },
+	{ "Audacity",               NULL,               NULL,               1 << 3,           False,       False,       -1 },
+	{ "de-hattrickorganizer-HO",NULL,               NULL,               1 << 3,           False,       False,       -1 }, 
+	{ "crawl-tiles"            ,NULL,               NULL,               1 << 3,           True,        True,        -1 }, 
+	{ "Pidgin",                 NULL,               NULL,               1 << 4,           False,       False,       -1 },
+	{ "Kadu",                   NULL,               NULL,               1 << 4,           False,       False,       -1 },
+	{ "Gimp",                   NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "Mtpaint",                NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "Xfe",                    NULL,               NULL,               1 << 6,           False,       False,       -1 },
+	{ "Lyx",                    NULL,               NULL,               1 << 6,           False,       False,       -1 },
+	{ "libreoffice-writer",     NULL,               NULL,               1 << 6,           False,       False,       -1 },
+	{ "libreoffice-calc",       NULL,               NULL,               1 << 6,           False,       False,       -1 },
+	{ "libreoffice-math",       NULL,               NULL,               1 << 6,           False,       False,       -1 },
+	{ "libreoffice-impress",    NULL,               NULL,               1 << 6,           False,       False,       -1 },
+	{ NULL,                     NULL,               "LibreOffice",      1 << 6,           False,       False,       -1 },
 };
 
 /* layout(s) */
@@ -71,19 +74,19 @@ static const Bool resizehints = False;  /* True means respect size hints in tile
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-    { "[T]",      tile },               /* first entry is default */
-    { "[M]",      monocle },
-    { "[F]",      NULL },               /* no layout function means floating behavior */
-    { "[B]",      bstack },
-    { "[G]",      gaplessgrid },
-    { "[P]",      pidgin },
-    
-	//{ "",        tile },               [> first entry is default <]
-	//{ "",        monocle },
-	//{ "",        NULL },               [> no layout function means floating behavior <]
-	//{ "",        bstack },
-	//{ "",        gaplessgrid },
-	//{ "",        pidgin },
+	{ "[T]",      tile },               /* first entry is default */
+	{ "[M]",      monocle },
+	{ "[F]",      NULL },               /* no layout function means floating behavior */
+	{ "[B]",      bstack },
+	{ "[G]",      gaplessgrid },
+	{ "[P]",      pidgin },
+
+    //{ "",        tile },               [> first entry is default <]
+    //{ "",        monocle },
+    //{ "",        NULL },               [> no layout function means floating behavior <]
+    //{ "",        bstack },
+    //{ "",        gaplessgrid },
+    //{ "",        pidgin },
 };
 
 /* tagging */
@@ -91,7 +94,7 @@ static const Tag tags[7] = {
 	/* name      layout             mfact    nmaster */
 	{ "sys",     &layouts[0],       -1,      -1 },
 	{ "web",     &layouts[1],       -1,      -1 },
-	{ "dev",     &layouts[0],       -1,      -1 },
+	{ "dev",     &layouts[3],       0.90,    -1 },
 	{ "ent",     &layouts[0],       -1,      -1 },
 	{ "msg",     &layouts[5],       0.80,    -1 },
 	{ "img",     &layouts[1],       -1,      -1 },
@@ -117,36 +120,38 @@ static const char *dmenucmd[]       = { "dmenu_run", "-b", "-fn", font, "-nb", c
 static const char *termcmd[]        = { terminal, NULL };
 static const char *tabbedtermcmd[]  = { terminal, "-pe", "tabbed", NULL };
 static const char *tmuxcmd[]        = { terminal, "-name", "tmux", "-e", "sh", "-c", "atmux", NULL };
-static const char *mocpcmd[]        = { terminal, "-name", "mocp", "-e", "mocp", NULL };
+static const char *musiccmd[]       = { terminal, "-name", "ncmpcpp", "-e", "ncmpcpp", NULL };
+static const char *torrentcmd[]     = { terminal, "-name", "transmission", "-e", "transmission-remote-cli", NULL };
 static const char *htopcmd[]        = { terminal, "-name", "htop", "-e", "htop", NULL };
 static const char *scratchpadcmd[]  = { terminal, "-name", scratchpadname, "-geometry", "132x22", NULL };
 static const char *lockcmd[]        = { "slimlock", NULL };
-static const char *nextsongcmd[]    = { "mocp", "-f", NULL };
-static const char *prevsongcmd[]    = { "mocp", "-r", NULL };
+static const char *nextsongcmd[]    = { "mpc", "next", NULL };
+static const char *prevsongcmd[]    = { "mpc", "prev", NULL };
 static const char *screenshotcmd[]  = { "scrot", NULL };
 
 /* multimedia keys */
 static const char *xf_calc[]        = { "galculator", NULL };
-static const char *xf_player[]      = { terminal, "-name", "mocp", "-e", "mocp", NULL };
+static const char *xf_player[]      = { terminal, "-name", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *xf_mail[]        = { terminal, "-name", "mutt", "-e", "mutt", NULL };
-static const char *xf_homepage[]    = { "luakit", NULL };
+static const char *xf_homepage[]    = { "dwb", NULL };
 static const char *xf_explorer[]    = { "spacefm", NULL };
 static const char *xf_favourites[]  = { "youtube-player", NULL };
 static const char *xf_mute[]        = { "amixer", "sset", "'Master'", "toggle", NULL };
-static const char *xf_play[]        = { "mocp", "-G", NULL };
+static const char *xf_play[]        = { "mpc", "toggle", NULL };
 static const char *xf_volume_up[]   = { "amixer", "set", "'Master'", "playback", "1+", "unmute", NULL };
 static const char *xf_volume_down[] = { "amixer", "set", "'Master'", "playback", "1-", "unmute", NULL };
 
 static Key keys[] = {
 	/* modifier                     key         function        argument */
 	{ MODKEY,                       XK_z,       spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_c,       spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_c,       spawn,          {.v = tabbedtermcmd } },
+	{ MODKEY|ShiftMask,             XK_c,       spawn,          {.v = tabbedtermcmd } },
+	{ MODKEY,                       XK_c,       spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_x,       spawn,          {.v = tmuxcmd } },
-	{ MODKEY,                       XK_a,       spawn,          {.v = mocpcmd } },
+	{ MODKEY,                       XK_a,       spawn,          {.v = musiccmd } },
+	{ MODKEY,                       XK_r,       spawn,          {.v = torrentcmd } },
 	{ MODKEY,                       XK_F12,     spawn,          {.v = lockcmd } },
-	{ 0|ControlMask,                XK_comma,   spawn,          {.v = prevsongcmd } },
-	{ 0|ControlMask,                XK_period,  spawn,          {.v = nextsongcmd } },
+	{ ControlMask,                  XK_comma,   spawn,          {.v = prevsongcmd } },
+	{ ControlMask,                  XK_period,  spawn,          {.v = nextsongcmd } },
 	{ ALTKEY|ControlMask,           XK_Delete,  spawn,          {.v = htopcmd } },
 	{ 0,                            XK_Print,   spawn,          {.v = screenshotcmd } },
 	{ MODKEY,                       XK_s,       togglescratch,  {.v = scratchpadcmd } },
@@ -174,8 +179,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_p,       setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_space,   setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,   togglefloating, {0} },
-	{ MODKEY,                       XK_0,       view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,       tag,            {.ui = ~0 } },
+	//{ MODKEY,                       XK_0,       view,           {.ui = ~0 } },
+	//{ MODKEY|ShiftMask,             XK_0,       tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,   focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period,  focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,   tagmon,         {.i = -1 } },
