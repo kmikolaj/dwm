@@ -42,7 +42,9 @@ build() {
 	patch -p1 < ../../19-dwm-6.0-netactivewindow.diff
 	patch -p1 < ../../20-dwm-6.0-moveresize.diff
 	patch -p1 < ../../21-dwm-6.0-systray.diff
-	#patch -p1 < ../../22-dwm-6.0-xft.diff
+	patch -p1 < ../../22-dwm-6.0-centerwindow.diff
+	patch -p1 < ../../23-dwm-6.0-attachaside.diff
+	#patch -p1 < ../../24-dwm-6.0-xft.diff
 
 	make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }

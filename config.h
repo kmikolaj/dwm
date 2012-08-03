@@ -6,7 +6,7 @@ static const char font[]            = "-*-stlarch-*-*-*-*-12-*-*-*-*-*-*-*" "," 
 static const char colors[MAXCOLORS][ColLast][8] = {
 	{ "#444444", "#657B83", "#073642" }, /* 1 = normal */
 	{ "#B58900", "#B58900", "#073642" }, /* 2 = selected */
-	{ "#FF2882", "#FFFFFF", "#FF2882" }, /* 3 = urgent */
+	{ "#D33682", "#FDF6E3", "#D33682" }, /* 3 = urgent */
 	{ "#444444", "#859900", "#073642" }, /* 4 = green */
 	{ "#444444", "#B58900", "#073642" }, /* 5 = yellow */
 	{ "#444444", "#2AA198", "#073642" }, /* 6 = cyan */
@@ -81,12 +81,12 @@ static const Layout layouts[] = {
 	{ "[G]",      gaplessgrid },
 	{ "[P]",      pidgin },
 
-    //{ "",        tile },               [> first entry is default <]
-    //{ "",        monocle },
-    //{ "",        NULL },               [> no layout function means floating behavior <]
-    //{ "",        bstack },
-    //{ "",        gaplessgrid },
-    //{ "",        pidgin },
+	//{ "",        tile },               [> first entry is default <]
+	//{ "",        monocle },
+	//{ "",        NULL },               [> no layout function means floating behavior <]
+	//{ "",        bstack },
+	//{ "",        gaplessgrid },
+	//{ "",        pidgin },
 };
 
 /* tagging */
@@ -116,7 +116,7 @@ static const Tag tags[7] = {
 /* commands */
 static const char terminal[]        = "urxvtc";
 static const char scratchpadname[]  = "scratchpad";
-static const char *dmenucmd[]       = { "dmenu_run", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
+static const char *dmenucmd[]       = { "dmenu_run", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[1][ColFG], "-sf", colors[1][ColBG], NULL };
 static const char *termcmd[]        = { terminal, NULL };
 static const char *tabbedtermcmd[]  = { terminal, "-pe", "tabbed", NULL };
 static const char *tmuxcmd[]        = { terminal, "-name", "tmux", "-e", "sh", "-c", "atmux", NULL };
@@ -171,6 +171,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,     view,           {0} },
 	{ MODKEY,                       XK_grave,   focusurgent,    {0} },
 	{ ALTKEY,                       XK_F4,      killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_e,       centerwindow,   {0} },
 	{ MODKEY|ShiftMask,             XK_t,       setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_m,       setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ShiftMask,             XK_f,       setlayout,      {.v = &layouts[2]} },

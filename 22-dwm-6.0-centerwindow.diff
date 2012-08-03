@@ -1,0 +1,28 @@
+--- a/dwm.c	2012-07-22 14:56:54.360763992 +0300
++++ b/dwm.c	2012-07-22 14:56:54.363763992 +0300
+@@ -315,6 +315,7 @@ static void settagsatom(Window w, unsigned int tags);
+ static void focusurgent(const Arg *arg);
+ static void savefloat(Client *c);
+ static void moveresize(const Arg *arg);
++static void centerwindow(const Arg *arg);
+ 
+ /* variables */
+ static Systray *systray = NULL;
+@@ -2940,7 +2941,17 @@ moveresize(const Arg *arg) {
+ while(XCheckMaskEvent(dpy, EnterWindowMask, &ev));
+ 
+ }
+ 
++void
++centerwindow(const Arg *arg) {
++	if(!selmon->sel || !selmon->sel->isfloating || selmon->sel->isfullscreen)
++		return;
++	selmon->sel->x = selmon->sel->oldx = selmon->wx + (selmon->ww / 2 - selmon->sel->w / 2);
++	selmon->sel->y = selmon->sel->oldy = selmon->wy + (selmon->wh / 2 - selmon->sel->h / 2);
++	XMoveResizeWindow(dpy, selmon->sel->win, selmon->sel->x, selmon->sel->y, selmon->sel->w, selmon->sel->h);
++	arrange(selmon);
++}
++
+ int
+ main(int argc, char *argv[]) {
+ 	if(argc == 2 && !strcmp("-v", argv[1]))
