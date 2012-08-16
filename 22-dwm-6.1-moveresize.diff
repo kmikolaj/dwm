@@ -1,9 +1,9 @@
 --- a/dwm.c	2012-04-11 23:35:15.000000000 +0200
 +++ b/dwm.c	2012-04-11 23:42:08.000000000 +0200
 @@ -280,6 +280,7 @@
- static void settagsatom(Window w, unsigned int tags);
- static void focusurgent(const Arg *arg);
- static void savefloat(Client *c);
+ static void updatesystrayiconstate(Client *i, XPropertyEvent *ev);
+ static Client *wintosystrayicon(Window w);
+ static void centerwindow(const Arg *arg);
 +static void moveresize(const Arg *arg);
  
  /* variables */

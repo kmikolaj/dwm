@@ -3,8 +3,10 @@
 # Contributor: Dag Odenhall <dag.odenhall@gmail.com>
 # Contributor: Grigorios Bouzakis <grbzks@gmail.com>
 
+# vim: set et ts=4 sw=4:
+
 pkgname=dwm
-pkgver=6.0
+pkgver=6.1
 pkgrel=1
 pkgdesc="A dynamic window manager for X"
 url="http://dwm.suckless.org"
@@ -12,47 +14,49 @@ arch=('i686' 'x86_64')
 license=('MIT')
 options=(zipman)
 depends=('libx11' 'libxinerama')
-source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
-	dwm.desktop)
-md5sums=('8bb00d4142259beb11e13473b81c0857'
-	'939f403a71b6e85261d09fc3412269ee')
+source=("${pkgname}-${pkgver}.tar.gz::http://hg.suckless.org/${pkgname}/archive/tip.tar.gz"
+        "config.h"
+        "dwm.desktop")
+md5sums=('f84f2e1bb846d8c08aa4729d5b6812a0'
+         '153df5f737f8facba5e9bc6a53a6d174'
+         '939f403a71b6e85261d09fc3412269ee')
 
 build() {
-	cd $srcdir/$pkgname-$pkgver
-	cp $srcdir/config.h config.h
+    cd "${srcdir}" && cd "`find . -type d -name dwm-\*`"
+    cp ${srcdir}/config.h config.h
 
-	patch -p1 < ../../01-dwm-6.0-pertag2.diff
-	patch -p1 < ../../02-dwm-6.0-push.diff
-	patch -p1 < ../../03-dwm-6.0-cycle.diff
-	patch -p1 < ../../04-dwm-6.0-gaplessgrid.diff
-	patch -p1 < ../../05-dwm-6.0-pidgin.diff
-	patch -p1 < ../../06-dwm-6.0-monocle_count.diff
-	patch -p1 < ../../07-dwm-6.0-XKeycodeToKeysym_fix.diff
+    patch -Np1 < ../../01-dwm-6.1-pertag2.diff
+    patch -Np1 < ../../02-dwm-6.1-push.diff
+    patch -Np1 < ../../03-dwm-6.1-cycle.diff
+    patch -Np1 < ../../04-dwm-6.1-gaplessgrid.diff
+    patch -Np1 < ../../05-dwm-6.1-pidgin.diff
+    #patch -Np1 < ../../06-dwm-6.1-monocle_count.diff
+    #patch -Np1 < ../../07-dwm-6.1-monocle_borderless.diff
+    patch -Np1 < ../../08-dwm-6.1-clicktofocus.diff
+    patch -Np1 < ../../09-dwm-6.1-viewontag.diff
+    patch -Np1 < ../../10-dwm-6.1-scratchpad.diff
+    patch -Np1 < ../../11-dwm-6.1-togglemax.diff
+    patch -Np1 < ../../12-dwm-6.1-autoresize.diff
+    #patch -Np1 < ../../13-dwm-6.1-increase_mfact_limit.diff
+    patch -Np1 < ../../14-dwm-6.1-remember-tags.diff
+    patch -Np1 < ../../15-dwm-6.1-centred-floating.diff
+    patch -Np1 < ../../16-dwm-6.1-focusurgent.diff
+    patch -Np1 < ../../17-dwm-6.1-statuscolors.diff
+    patch -Np1 < ../../18-dwm-6.1-save_floats.diff
+    patch -Np1 < ../../19-dwm-6.1-systray.diff
+    patch -Np1 < ../../20-dwm-6.1-centerwindow.diff
+    patch -Np1 < ../../21-dwm-6.1-attachaside.diff
+    patch -Np1 < ../../22-dwm-6.1-moveresize.diff
+    #patch -Np1 < ../../23-dwm-6.1-xft.diff
 
-	patch -p1 < ../../09-dwm-6.0-viewontag.diff
-	patch -p1 < ../../10-dwm-6.0-scratchpad.diff
-	patch -p1 < ../../11-dwm-6.0-togglemax.diff
-	patch -p1 < ../../12-dwm-6.0-autoresize.diff
-
-	patch -p1 < ../../14-dwm-6.0-remember-tags.diff
-	patch -p1 < ../../15-dwm-6.0-centred-floating.diff
-	patch -p1 < ../../16-dwm-6.0-focusurgent.diff
-	patch -p1 < ../../17-dwm-6.0-statuscolors.diff
-	patch -p1 < ../../18-dwm-6.0-save_floats.diff
-	patch -p1 < ../../19-dwm-6.0-netactivewindow.diff
-	patch -p1 < ../../20-dwm-6.0-moveresize.diff
-	patch -p1 < ../../21-dwm-6.0-systray.diff
-	patch -p1 < ../../22-dwm-6.0-centerwindow.diff
-	patch -p1 < ../../23-dwm-6.0-attachaside.diff
-	#patch -p1 < ../../24-dwm-6.0-xft.diff
-
-	make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+    make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
-	cd $srcdir/$pkgname-$pkgver
-	make PREFIX=/usr DESTDIR=$pkgdir install
-	install -m644 -D LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
-	install -m644 -D README $pkgdir/usr/share/doc/$pkgname/README
-	install -m644 -D $srcdir/dwm.desktop $pkgdir/usr/share/xsessions/dwm.desktop
+    cd "${srcdir}" && cd "`find . -type d -name dwm-\*`"
+    make PREFIX=/usr DESTDIR=$pkgdir install
+    install -m644 -D LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
+    install -m644 -D README $pkgdir/usr/share/doc/$pkgname/README
+    install -m644 -D $srcdir/dwm.desktop $pkgdir/usr/share/xsessions/dwm.desktop
 }
+

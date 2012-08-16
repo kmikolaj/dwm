@@ -1,6 +1,8 @@
---- a/dwm.c	2012-02-12 10:56:30.191137246 +0200
-+++ b/dwm.c	2012-02-12 10:56:30.194137246 +0200
-@@ -271,6 +271,7 @@ static void tagcycle(const Arg *arg);
+Homepage: http://hg.punctweb.ro
+
+--- a/dwm.c	2012-07-22 14:56:54.231763984 +0300
++++ b/dwm.c	2012-07-22 14:56:54.234763984 +0300
+@@ -273,6 +273,7 @@ static void tagcycle(const Arg *arg);
  static void gaplessgrid(Monitor *m);
  static void pidgin(Monitor *m);
  static void togglescratch(const Arg *arg);
@@ -8,7 +10,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -2447,6 +2448,38 @@ togglescratch(const Arg *arg) {
+@@ -2483,6 +2484,38 @@ togglescratch(const Arg *arg) {
  		spawn(arg);
  }
  

@@ -1,6 +1,8 @@
---- a/dwm.c	2012-02-10 02:36:08.000000000 +0200
-+++ b/dwm.c	2012-02-12 10:56:30.070137239 +0200
-@@ -126,8 +126,6 @@ typedef struct {
+Homepage: http://hg.punctweb.ro
+
+--- a/dwm.c	2012-07-08 10:45:53.000000000 +0300
++++ b/dwm.c	2012-07-22 14:56:54.096763977 +0300
+@@ -127,8 +127,6 @@ typedef struct {
  
  struct Monitor {
  	char ltsymbol[16];
@@ -9,7 +11,7 @@
  	int num;
  	int by;               /* bar geometry */
  	int mx, my, mw, mh;   /* screen size */
-@@ -143,9 +141,21 @@ struct Monitor {
+@@ -144,9 +142,21 @@ struct Monitor {
  	Monitor *next;
  	Window barwin;
  	const Layout *lt[2];
@@ -31,7 +33,7 @@
  	const char *class;
  	const char *instance;
  	const char *title;
-@@ -251,6 +261,7 @@ static int xerror(Display *dpy, XErrorEv
+@@ -253,6 +263,7 @@ static int xerror(Display *dpy, XErrorEv
  static int xerrordummy(Display *dpy, XErrorEvent *ee);
  static int xerrorstart(Display *dpy, XErrorEvent *ee);
  static void zoom(const Arg *arg);
@@ -39,7 +41,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -441,7 +452,7 @@ buttonpress(XEvent *e) {
+@@ -443,7 +454,7 @@ buttonpress(XEvent *e) {
  	if(ev->window == selmon->barwin) {
  		i = x = 0;
  		do
@@ -48,7 +50,7 @@
  		while(ev->x >= x && ++i < LENGTH(tags));
  		if(i < LENGTH(tags)) {
  			click = ClkTagBar;
-@@ -513,6 +524,9 @@ cleanupmon(Monitor *mon) {
+@@ -516,6 +527,9 @@ cleanupmon(Monitor *mon) {
  	}
  	XUnmapWindow(dpy, mon->barwin);
  	XDestroyWindow(dpy, mon->barwin);
@@ -58,7 +60,7 @@
  	free(mon);
  }
  
-@@ -532,6 +546,7 @@ void
+@@ -535,6 +549,7 @@ void
  clientmessage(XEvent *e) {
  	XClientMessageEvent *cme = &e->xclient;
  	Client *c = wintoclient(cme->window);
@@ -66,7 +68,7 @@
  
  	if(!c)
  		return;
-@@ -544,6 +559,10 @@ clientmessage(XEvent *e) {
+@@ -547,6 +562,10 @@ clientmessage(XEvent *e) {
  		if(!ISVISIBLE(c)) {
  			c->mon->seltags ^= 1;
  			c->mon->tagset[c->mon->seltags] = c->tags;
@@ -77,7 +79,7 @@
  		}
  		pop(c);
  	}
-@@ -646,17 +665,31 @@ configurerequest(XEvent *e) {
+@@ -650,17 +669,31 @@ configurerequest(XEvent *e) {
  Monitor *
  createmon(void) {
  	Monitor *m;
@@ -113,7 +115,7 @@
  	return m;
  }
  
-@@ -729,9 +762,9 @@ drawbar(Monitor *m) {
+@@ -733,9 +766,9 @@ drawbar(Monitor *m) {
  	}
  	dc.x = 0;
  	for(i = 0; i < LENGTH(tags); i++) {
@@ -125,7 +127,7 @@
  		drawsquare(m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
  		           occ & 1 << i, urg & 1 << i, col);
  		dc.x += dc.w;
-@@ -1028,7 +1061,7 @@ grabkeys(void) {
+@@ -1035,7 +1068,7 @@ grabkeys(void) {
  
  void
  incnmaster(const Arg *arg) {
@@ -134,7 +136,7 @@
  	arrange(selmon);
  }
  
-@@ -1559,7 +1592,7 @@ setlayout(const Arg *arg) {
+@@ -1576,7 +1609,7 @@ setlayout(const Arg *arg) {
  	if(!arg || !arg->v || arg->v != selmon->lt[selmon->sellt])
  		selmon->sellt ^= 1;
  	if(arg && arg->v)
@@ -143,7 +145,7 @@
  	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
  	if(selmon->sel)
  		arrange(selmon);
-@@ -1574,10 +1607,10 @@ setmfact(const Arg *arg) {
+@@ -1591,10 +1624,10 @@ setmfact(const Arg *arg) {
  
  	if(!arg || !selmon->lt[selmon->sellt]->arrange)
  		return;
@@ -156,7 +158,7 @@
  	arrange(selmon);
  }
  
-@@ -1711,13 +1744,13 @@ tile(Monitor *m) {
+@@ -1730,13 +1763,13 @@ tile(Monitor *m) {
  	if(n == 0)
  		return;
  
@@ -174,7 +176,7 @@
  			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), False);
  			my += HEIGHT(c);
  		}
-@@ -1749,13 +1782,24 @@ togglefloating(const Arg *arg) {
+@@ -1770,13 +1803,24 @@ togglefloating(const Arg *arg) {
  
  void
  toggletag(const Arg *arg) {
@@ -200,7 +202,7 @@
  		focus(NULL);
  		arrange(selmon);
  	}
-@@ -2046,11 +2090,26 @@ updatewmhints(Client *c) {
+@@ -2082,11 +2126,26 @@ updatewmhints(Client *c) {
  
  void
  view(const Arg *arg) {
@@ -228,7 +230,7 @@
  	focus(NULL);
  	arrange(selmon);
  }
-@@ -2129,6 +2188,32 @@ zoom(const Arg *arg) {
+@@ -2165,6 +2224,32 @@ zoom(const Arg *arg) {
  	pop(c);
  }
  

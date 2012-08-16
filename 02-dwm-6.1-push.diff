@@ -1,6 +1,8 @@
---- a/dwm.c	2012-02-12 10:56:30.078137239 +0200
-+++ b/dwm.c	2012-02-12 10:56:30.090137240 +0200
-@@ -262,6 +262,9 @@ static int xerrordummy(Display *dpy, XEr
+Homepage: http://hg.punctweb.ro
+
+--- a/dwm.c	2012-07-22 14:56:54.107763976 +0300
++++ b/dwm.c	2012-07-22 14:56:54.110763977 +0300
+@@ -264,6 +264,9 @@ static int xerrordummy(Display *dpy, XEr
  static int xerrorstart(Display *dpy, XErrorEvent *ee);
  static void zoom(const Arg *arg);
  static void bstack(Monitor *m);
@@ -10,7 +12,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -2214,6 +2217,65 @@ bstack(Monitor *m) {
+@@ -2250,6 +2253,65 @@ bstack(Monitor *m) {
  		}
  }
  

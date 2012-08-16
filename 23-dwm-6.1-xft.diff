@@ -1,5 +1,5 @@
---- a/dwm.c	2012-06-22 23:30:08.000000000 +0200
-+++ b/dwm.c	2012-06-23 00:09:32.000000000 +0200
+--- a/dwm.c	2012-08-14 21:12:55.000000000 +0200
++++ b/dwm.c	2012-08-14 21:17:06.000000000 +0200
 @@ -40,6 +40,7 @@
  #ifdef XINERAMA
  #include <X11/extensions/Xinerama.h>
@@ -8,7 +8,7 @@
  
  /* macros */
  #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
-@@ -121,15 +122,14 @@
+@@ -122,15 +123,14 @@
  
  typedef struct {
  	int x, y, w, h;
@@ -26,7 +26,7 @@
  	} font;
  } DC; /* draw context */
  
-@@ -217,8 +217,8 @@
+@@ -219,15 +219,15 @@
  static void drawbar(Monitor *m);
  static void drawbars(void);
  static void drawcoloredtext(Monitor *m, char *text);
@@ -37,16 +37,15 @@
  static void enternotify(XEvent *e);
  static void expose(XEvent *e);
  static void focus(Client *c);
-@@ -226,7 +226,7 @@
+ static void focusin(XEvent *e);
  static void focusmon(const Arg *arg);
  static void focusstack(const Arg *arg);
- static Atom getatomprop(Client *c, Atom prop);
 -static unsigned long getcolor(const char *colstr);
 +static XftColor getcolor(const char *colstr);
  static Bool getrootptr(int *x, int *y);
  static long getstate(Window w);
- static unsigned int getsystraywidth();
-@@ -556,10 +556,6 @@
+ static Bool gettextprop(Window w, Atom atom, char *text, unsigned int size);
+@@ -570,10 +570,6 @@
  	for(m = mons; m; m = m->next)
  		while(m->stack)
  			unmanage(m->stack, False);
@@ -57,16 +56,16 @@
  	XUngrabKey(dpy, AnyKey, AnyModifier, root);
  	XFreePixmap(dpy, dc.drawable);
  	XFreeGC(dpy, dc.gc);
-@@ -864,7 +860,7 @@
+@@ -879,7 +875,7 @@
  drawbar(Monitor *m) {
  	int x;
  	unsigned int i, occ = 0, urg = 0;
 -	unsigned long *col;
 +	XftColor *col;
- 	unsigned int a = 0, s = 0;
  	Client *c;
  
-@@ -934,7 +930,7 @@
+ 	for(c = m->clients; c; c = c->next) {
+@@ -951,7 +947,7 @@
  void
  drawcoloredtext(Monitor *m, char *text) {
  	char *buf = text, *ptr = buf, c = 1;
@@ -75,7 +74,7 @@
  	int i, ox = dc.x;
  
  	while(*ptr) {
-@@ -956,10 +952,10 @@
+@@ -973,10 +969,10 @@
  }
  
  void
@@ -88,7 +87,7 @@
  	x = (dc.font.ascent + dc.font.descent + 2) / 4;
  	if(filled)
  		XFillRectangle(dpy, dc.drawable, dc.gc, dc.x+1, dc.y+1, x+1, x+1);
-@@ -968,11 +964,12 @@
+@@ -985,11 +981,12 @@
  }
  
  void
@@ -103,7 +102,7 @@
  	XFillRectangle(dpy, dc.drawable, dc.gc, dc.x, dc.y, dc.w, dc.h);
  	if(!text)
  		return;
-@@ -987,11 +984,11 @@
+@@ -1004,11 +1001,11 @@
  	memcpy(buf, text, len);
  	if(len < olen)
  		for(i = len; i && i > len - 3; buf[--i] = '.');
@@ -120,7 +119,7 @@
  }
  
  void
-@@ -1037,7 +1034,7 @@
+@@ -1056,7 +1053,7 @@
  		detachstack(c);
  		attachstack(c);
  		grabbuttons(c, True);
@@ -129,7 +128,7 @@
  		setfocus(c);
  	}
  	else {
-@@ -1117,14 +1114,14 @@
+@@ -1137,14 +1134,14 @@
  	return atom;
  }
  
@@ -149,7 +148,7 @@
  }
  
  Bool
-@@ -1234,35 +1231,12 @@
+@@ -1245,35 +1242,12 @@
  
  void
  initfont(const char *fontstr) {
@@ -190,7 +189,7 @@
  	dc.font.height = dc.font.ascent + dc.font.descent;
  }
  
-@@ -1368,7 +1342,7 @@
+@@ -1379,7 +1353,7 @@
  		c->tags &= TAGMASK;
  	wc.border_width = c->bw;
  	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
@@ -199,7 +198,7 @@
  	configure(c); /* propagates border_width, if size doesn't change */
  	updatewindowtype(c);
  	updatesizehints(c);
-@@ -1920,8 +1894,6 @@
+@@ -1909,8 +1883,6 @@
  	dc.drawable = XCreatePixmap(dpy, root, DisplayWidth(dpy, screen), bh, DefaultDepth(dpy, screen));
  	dc.gc = XCreateGC(dpy, root, 0, NULL);
  	XSetLineAttributes(dpy, dc.gc, 1, LineSolid, CapButt, JoinMiter);
@@ -208,7 +207,7 @@
  	/* init system tray */
  	updatesystray();
  	/* init bars */
-@@ -2004,7 +1976,6 @@
+@@ -1993,7 +1965,6 @@
  textnw(const char *text, unsigned int len) {
  	char *ptr = (char *)text, buf[len+1];
  	unsigned int i, ibuf, lenbuf = len;
@@ -216,7 +215,7 @@
  
  	for(i = 0, ibuf = 0; *ptr && i < len; i++, ptr++) {
  		if(*ptr <= MAXCOLORS && *ptr > 0) {
-@@ -2016,11 +1987,9 @@
+@@ -2005,11 +1976,9 @@
  	}
  	buf[ibuf]=0;
  
@@ -231,7 +230,7 @@
  }
  
  void
-@@ -2123,7 +2092,7 @@
+@@ -2114,7 +2083,7 @@
  	if(!c)
  		return;
  	grabbuttons(c, False);
@@ -240,7 +239,16 @@
  	if(setfocus) {
  		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
  		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
-@@ -2445,11 +2414,11 @@
+@@ -2398,7 +2367,7 @@
+ 		else {
+ 			c->isurgent = (wmh->flags & XUrgencyHint) ? True : False;
+ 			if(c->isurgent)
+-				XSetWindowBorder(dpy, c->win, dc.colors[2][ColBorder]);
++				XSetWindowBorder(dpy, c->win, dc.colors[2][ColBorder].pixel);
+ 		}
+ 		if(wmh->flags & InputHint)
+ 			c->neverfocus = !wmh->input;
+@@ -2910,11 +2879,11 @@
  		/* init systray */
  		if(!(systray = (Systray *)calloc(1, sizeof(Systray))))
  			die("fatal: could not malloc() %u bytes\n", sizeof(Systray));
@@ -254,19 +262,10 @@
  		XSelectInput(dpy, systray->win, SubstructureNotifyMask);
  		XChangeProperty(dpy, systray->win, netatom[NetSystemTrayOrientation], XA_CARDINAL, 32,
  				PropModeReplace, (unsigned char *)&systrayorientation, 1);
-@@ -2505,7 +2474,7 @@
- 		else {
- 			c->isurgent = (wmh->flags & XUrgencyHint) ? True : False;
- 			if(c->isurgent)
--				XSetWindowBorder(dpy, c->win, dc.colors[2][ColBorder]);
-+				XSetWindowBorder(dpy, c->win, dc.colors[2][ColBorder].pixel);
- 		}
- 		if(wmh->flags & InputHint)
- 			c->neverfocus = !wmh->input;
 --- a/config.mk	2011-12-19 10:02:46.000000000 -0500
 +++ b/config.mk	2012-03-30 11:32:31.768929769 -0400
 @@ -14,12 +14,17 @@
- XINERAMALIBS = -L${X11LIB} -lXinerama
+ XINERAMALIBS  = -lXinerama
  XINERAMAFLAGS = -DXINERAMA
  
 +# Xft
@@ -275,14 +274,14 @@
 +XFTFLAGS = -DXFT
 +
  # includes and libs
--INCS = -I. -I/usr/include -I${X11INC}
--LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${XINERAMALIBS}
-+INCS = -I. -I/usr/include -I${X11INC} ${XFTINC}
-+LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${XINERAMALIBS} ${XFTLIBS}
+-INCS = -I${X11INC}
+-LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS}
++INCS = -I${X11INC} ${XFTINC}
++LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${XFTLIBS}
  
  # flags
--CPPFLAGS = -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
-+CPPFLAGS = -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS} ${XFTFLAGS}
- #CFLAGS = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
- CFLAGS = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
- #LDFLAGS = -g ${LIBS}
+-CPPFLAGS = -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
++CPPFLAGS = -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS} ${XFTFLAGS}
+ #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+ CFLAGS   = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
+ LDFLAGS  = -s ${LIBS}

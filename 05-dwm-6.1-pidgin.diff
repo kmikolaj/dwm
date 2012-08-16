@@ -1,6 +1,8 @@
---- a/dwm.c	2012-02-12 10:56:30.118137241 +0200
-+++ b/dwm.c	2012-02-12 10:56:30.135137242 +0200
-@@ -269,6 +269,7 @@ static void cycle(const Arg *arg);
+Homepage: http://hg.punctweb.ro
+
+--- a/dwm.c	2012-07-22 14:56:54.149763979 +0300
++++ b/dwm.c	2012-07-22 14:56:54.151763979 +0300
+@@ -271,6 +271,7 @@ static void cycle(const Arg *arg);
  static int shifttag(int dist);
  static void tagcycle(const Arg *arg);
  static void gaplessgrid(Monitor *m);
@@ -8,7 +10,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -2349,6 +2350,57 @@ gaplessgrid(Monitor *m) {
+@@ -2385,6 +2386,56 @@ gaplessgrid(Monitor *m) {
  		}
  	}
  }
@@ -19,8 +21,7 @@
 +	Client *c, *bl = NULL;
 +
 +	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++)
-+		if(strstr(c->name, "Lista znajomych") ||
-+			strstr(c->name, "Buddy List"))
++		if(strstr(c->name, "Lista znajomych") || strstr(c->name, "Buddy List"))
 +			bl = c;
 +	if(n == 0)
 +		return;

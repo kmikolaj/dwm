@@ -4,14 +4,14 @@
 static const char font[]            = "-*-stlarch-*-*-*-*-12-*-*-*-*-*-*-*" "," "-*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1";
 //static const char font[]            = "xft:Envy Code R:pixelsize=13";
 static const char colors[MAXCOLORS][ColLast][8] = {
-	{ "#444444", "#657B83", "#073642" }, /* 1 = normal */
+	{ "#444444", "#839496", "#073642" }, /* 1 = normal */
 	{ "#B58900", "#B58900", "#073642" }, /* 2 = selected */
 	{ "#D33682", "#FDF6E3", "#D33682" }, /* 3 = urgent */
-	{ "#444444", "#859900", "#073642" }, /* 4 = green */
-	{ "#444444", "#B58900", "#073642" }, /* 5 = yellow */
+	{ "#444444", "#657b83", "#073642" }, /* 4 = gray */
+	{ "#444444", "#859900", "#073642" }, /* 5 = green */
 	{ "#444444", "#2AA198", "#073642" }, /* 6 = cyan */
 	{ "#444444", "#D33682", "#073642" }, /* 7 = magenta */
-	{ "#444444", "#6C71C4", "#073642" }, /* 8 = unusable */
+	{ "#444444", "#CB4B16", "#073642" }, /* 8 = unusable */
 	{ "#444444", "#FDF6E3", "#073642" }, /* 9 = white */
 };
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -21,6 +21,7 @@ static const Bool showsystray       = True;     /* False means no systray */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
+static const Bool clicktofocus      = False;    /* Change focus only on click */
 
 static const Rule rules[] = {
 	/* class                    instance            title               tags mask         isfloating   iscentred    monitor */
@@ -82,7 +83,7 @@ static const Layout layouts[] = {
 	{ "[P]",      pidgin },
 
 	//{ "",        tile },               [> first entry is default <]
-	//{ "",        monocle },
+	//{ "",        monocle },
 	//{ "",        NULL },               [> no layout function means floating behavior <]
 	//{ "",        bstack },
 	//{ "",        gaplessgrid },
@@ -121,6 +122,7 @@ static const char *termcmd[]        = { terminal, NULL };
 static const char *tabbedtermcmd[]  = { terminal, "-pe", "tabbed", NULL };
 static const char *tmuxcmd[]        = { terminal, "-name", "tmux", "-e", "sh", "-c", "atmux", NULL };
 static const char *musiccmd[]       = { terminal, "-name", "ncmpcpp", "-e", "ncmpcpp", NULL };
+static const char *rangercmd[]      = { terminal, "-name", "ranger", "-e", "ranger", NULL };
 static const char *torrentcmd[]     = { terminal, "-name", "transmission", "-e", "transmission-remote-cli", NULL };
 static const char *htopcmd[]        = { terminal, "-name", "htop", "-e", "htop", NULL };
 static const char *scratchpadcmd[]  = { terminal, "-name", scratchpadname, "-geometry", "132x22", NULL };
@@ -133,7 +135,7 @@ static const char *screenshotcmd[]  = { "scrot", NULL };
 static const char *xf_calc[]        = { "galculator", NULL };
 static const char *xf_player[]      = { terminal, "-name", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *xf_mail[]        = { terminal, "-name", "mutt", "-e", "mutt", NULL };
-static const char *xf_homepage[]    = { "dwb", NULL };
+static const char *xf_homepage[]    = { "sh", "-c", "$BROWSER", NULL };
 static const char *xf_explorer[]    = { "spacefm", NULL };
 static const char *xf_favourites[]  = { "youtube-player", NULL };
 static const char *xf_mute[]        = { "amixer", "sset", "'Master'", "toggle", NULL };
@@ -148,7 +150,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_c,       spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_x,       spawn,          {.v = tmuxcmd } },
 	{ MODKEY,                       XK_a,       spawn,          {.v = musiccmd } },
-	{ MODKEY,                       XK_r,       spawn,          {.v = torrentcmd } },
+	{ MODKEY,                       XK_r,       spawn,          {.v = rangercmd } },
+	{ MODKEY,                       XK_w,       spawn,          {.v = torrentcmd } },
 	{ MODKEY,                       XK_F12,     spawn,          {.v = lockcmd } },
 	{ ControlMask,                  XK_comma,   spawn,          {.v = prevsongcmd } },
 	{ ControlMask,                  XK_period,  spawn,          {.v = nextsongcmd } },

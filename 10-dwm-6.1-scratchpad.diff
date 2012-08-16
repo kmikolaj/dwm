@@ -1,6 +1,8 @@
---- a/dwm.c	2012-02-12 10:56:30.180137245 +0200
-+++ b/dwm.c	2012-02-12 10:56:30.183137245 +0200
-@@ -270,6 +270,7 @@ static int shifttag(int dist);
+Homepage: http://hg.punctweb.ro
+
+--- a/dwm.c	2012-07-22 14:56:54.217763983 +0300
++++ b/dwm.c	2012-07-22 14:56:54.220763983 +0300
+@@ -272,6 +272,7 @@ static int shifttag(int dist);
  static void tagcycle(const Arg *arg);
  static void gaplessgrid(Monitor *m);
  static void pidgin(Monitor *m);
@@ -8,7 +10,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -306,6 +307,8 @@ static Window root;
+@@ -308,6 +309,8 @@ static Window root;
  /* configuration, allows nested code to access above variables */
  #include "config.h"
  
@@ -17,7 +19,7 @@
  /* compile-time check if all tags fit into an unsigned int bit array. */
  struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
  
-@@ -1194,6 +1197,14 @@ manage(Window w, XWindowAttributes *wa)
+@@ -1201,6 +1204,14 @@ manage(Window w, XWindowAttributes *wa)
  	           && (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
  	c->bw = borderpx;
  
@@ -32,7 +34,7 @@
  	wc.border_width = c->bw;
  	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
  	XSetWindowBorder(dpy, w, dc.norm[ColBorder]);
-@@ -2414,6 +2425,28 @@ pidgin(Monitor *m) {
+@@ -2450,6 +2461,28 @@ pidgin(Monitor *m) {
  	}
  }
  

@@ -1,6 +1,8 @@
---- a/dwm.c	2012-02-12 10:56:30.263137250 +0200
-+++ b/dwm.c	2012-02-12 10:56:30.266137251 +0200
-@@ -89,6 +89,7 @@ struct Client {
+Homepage: http://hg.punctweb.ro
+
+--- a/dwm.c	2012-07-22 14:56:54.330763990 +0300
++++ b/dwm.c	2012-07-22 14:56:54.333763991 +0300
+@@ -90,6 +90,7 @@ struct Client {
  	float mina, maxa;
  	int x, y, w, h;
  	int oldx, oldy, oldw, oldh;
@@ -8,7 +10,7 @@
  	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
  	int bw, oldbw;
  	unsigned int tags;
-@@ -277,6 +278,7 @@ static void togglescratch(const Arg *arg
+@@ -279,6 +280,7 @@ static void togglescratch(const Arg *arg
  static void togglemax(const Arg *arg);
  static void settagsatom(Window w, unsigned int tags);
  static void focusurgent(const Arg *arg);
@@ -16,7 +18,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -1261,6 +1263,7 @@ manage(Window w, XWindowAttributes *wa)
+@@ -1268,6 +1270,7 @@ manage(Window w, XWindowAttributes *wa)
  	updatewindowtype(c);
  	updatesizehints(c);
  	updatewmhints(c);
@@ -24,7 +26,7 @@
  	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
  	grabbuttons(c, False);
  	if(!c->isfloating)
-@@ -1668,10 +1671,18 @@ setfullscreen(Client *c, Bool fullscreen
+@@ -1685,10 +1688,18 @@ setfullscreen(Client *c, Bool fullscreen
  
  void
  setlayout(const Arg *arg) {
@@ -43,7 +45,7 @@
  	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
  	if(selmon->sel)
  		arrange(selmon);
-@@ -1874,8 +1885,10 @@ togglefloating(const Arg *arg) {
+@@ -1895,8 +1906,10 @@ togglefloating(const Arg *arg) {
  		return;
  	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
  	if(selmon->sel->isfloating)
@@ -56,7 +58,7 @@
  	arrange(selmon);
  }
  
-@@ -2582,6 +2595,14 @@ focusurgent(const Arg *arg) {
+@@ -2618,6 +2631,14 @@ focusurgent(const Arg *arg) {
  	}
  }
  

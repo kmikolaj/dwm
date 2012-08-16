@@ -1,14 +1,16 @@
---- a/dwm.c	2012-02-12 10:56:30.221137248 +0200
-+++ b/dwm.c	2012-02-12 10:56:30.224137248 +0200
-@@ -62,6 +62,7 @@ enum { NetSupported, NetWMName, NetWMSta
+Homepage: http://hg.punctweb.ro
+
+--- a/dwm.c	2012-07-22 14:56:54.273763987 +0300
++++ b/dwm.c	2012-07-22 14:56:54.276763987 +0300
+@@ -63,6 +63,7 @@ enum { NetSupported, NetWMName, NetWMSta
         NetWMFullscreen, NetActiveWindow, NetWMWindowType,
-        NetWMWindowTypeDialog, NetLast };     /* EWMH atoms */
+        NetWMWindowTypeDialog, NetClientList, NetLast };     /* EWMH atoms */
  enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
 +enum { DWMTags, DWMLast };                              /* DWM atoms */
  enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
         ClkClientWin, ClkRootWin, ClkLast };             /* clicks */
  
-@@ -272,6 +273,7 @@ static void gaplessgrid(Monitor *m);
+@@ -274,6 +275,7 @@ static void gaplessgrid(Monitor *m);
  static void pidgin(Monitor *m);
  static void togglescratch(const Arg *arg);
  static void togglemax(const Arg *arg);
@@ -16,7 +18,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -297,7 +299,7 @@ static void (*handler[LASTEvent]) (XEven
+@@ -299,7 +301,7 @@ static void (*handler[LASTEvent]) (XEven
  	[PropertyNotify] = propertynotify,
  	[UnmapNotify] = unmapnotify
  };
@@ -25,7 +27,7 @@
  static Bool running = True;
  static Cursor cursor[CurLast];
  static Display *dpy;
-@@ -1170,6 +1172,10 @@ manage(Window w, XWindowAttributes *wa)
+@@ -1177,6 +1179,10 @@ manage(Window w, XWindowAttributes *wa)
  	Client *c, *t = NULL;
  	Window trans = None;
  	XWindowChanges wc;
@@ -36,7 +38,7 @@
  
  	if(!(c = calloc(1, sizeof(Client))))
  		die("fatal: could not malloc() %u bytes\n", sizeof(Client));
-@@ -1182,7 +1188,13 @@ manage(Window w, XWindowAttributes *wa)
+@@ -1189,7 +1195,13 @@ manage(Window w, XWindowAttributes *wa)
  	else {
  		c->mon = selmon;
  		applyrules(c);
@@ -50,15 +52,15 @@
  	/* geometry */
  	c->x = c->oldx = wa->x;
  	c->y = c->oldy = wa->y;
-@@ -1674,6 +1686,7 @@ setup(void) {
- 	netatom[NetWMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
+@@ -1692,6 +1704,7 @@ setup(void) {
  	netatom[NetWMWindowType] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
  	netatom[NetWMWindowTypeDialog] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
+ 	netatom[NetClientList] = XInternAtom(dpy, "_NET_CLIENT_LIST", False);
 +	dwmatom[DWMTags] = XInternAtom(dpy, "_DWM_TAGS", False);
  	/* init cursors */
  	cursor[CurNormal] = XCreateFontCursor(dpy, XC_left_ptr);
  	cursor[CurResize] = XCreateFontCursor(dpy, XC_sizing);
-@@ -1750,6 +1763,7 @@ void
+@@ -1769,6 +1782,7 @@ void
  tag(const Arg *arg) {
  	if(selmon->sel && arg->ui & TAGMASK) {
  		selmon->sel->tags = arg->ui & TAGMASK;
@@ -66,7 +68,7 @@
  		focus(NULL);
  		arrange(selmon);
  		if(viewontag)
-@@ -1840,6 +1854,7 @@ toggletag(const Arg *arg) {
+@@ -1861,6 +1875,7 @@ toggletag(const Arg *arg) {
  		}
  		selmon->sel->tags = newtags;
  		selmon->lt[selmon->sellt] = selmon->lts[selmon->curtag];
@@ -74,7 +76,7 @@
  		focus(NULL);
  		arrange(selmon);
  	}
-@@ -2487,6 +2502,12 @@ togglemax(const Arg *arg) {
+@@ -2523,6 +2538,12 @@ togglemax(const Arg *arg) {
  	}
  }
  
