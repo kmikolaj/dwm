@@ -18,7 +18,7 @@ source=("${pkgname}-${pkgver}.tar.gz::http://hg.suckless.org/${pkgname}/archive/
         "config.h"
         "dwm.desktop")
 md5sums=('f84f2e1bb846d8c08aa4729d5b6812a0'
-         '153df5f737f8facba5e9bc6a53a6d174'
+         '530ecc1da592775ad0a2fe4d3745745b'
          '939f403a71b6e85261d09fc3412269ee')
 
 build() {

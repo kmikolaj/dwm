@@ -5,14 +5,14 @@ static const char font[]            = "-*-stlarch-*-*-*-*-12-*-*-*-*-*-*-*" "," 
 //static const char font[]            = "xft:Envy Code R:pixelsize=13";
 static const char colors[MAXCOLORS][ColLast][8] = {
 	{ "#444444", "#839496", "#073642" }, /* 1 = normal */
-	{ "#B58900", "#B58900", "#073642" }, /* 2 = selected */
+	{ "#B58900", "#FDF6E3", "#073642" }, /* 2 = selected */
 	{ "#D33682", "#FDF6E3", "#D33682" }, /* 3 = urgent */
 	{ "#444444", "#657b83", "#073642" }, /* 4 = gray */
 	{ "#444444", "#859900", "#073642" }, /* 5 = green */
 	{ "#444444", "#2AA198", "#073642" }, /* 6 = cyan */
 	{ "#444444", "#D33682", "#073642" }, /* 7 = magenta */
 	{ "#444444", "#CB4B16", "#073642" }, /* 8 = unusable */
-	{ "#444444", "#FDF6E3", "#073642" }, /* 9 = white */
+	{ "#444444", "#B58900", "#073642" }, /* 9 = yellow */
 };
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 24;       /* snap pixel */
