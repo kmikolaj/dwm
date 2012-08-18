@@ -117,7 +117,7 @@ static const Tag tags[7] = {
 /* commands */
 static const char terminal[]        = "urxvtc";
 static const char scratchpadname[]  = "scratchpad";
-static const char *dmenucmd[]       = { "dmenu_run", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[1][ColFG], "-sf", colors[1][ColBG], NULL };
+static const char *dmenucmd[]       = { "dmenu_run", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
 static const char *termcmd[]        = { terminal, NULL };
 static const char *tabbedtermcmd[]  = { terminal, "-pe", "tabbed", NULL };
 static const char *tmuxcmd[]        = { terminal, "-name", "tmux", "-e", "sh", "-c", "atmux", NULL };
@@ -129,7 +129,8 @@ static const char *scratchpadcmd[]  = { terminal, "-name", scratchpadname, "-geo
 static const char *lockcmd[]        = { "slimlock", NULL };
 static const char *nextsongcmd[]    = { "mpc", "next", NULL };
 static const char *prevsongcmd[]    = { "mpc", "prev", NULL };
-static const char *screenshotcmd[]  = { "scrot", NULL };
+static const char *screenshotcmd[]  = { "sh", "-c", "screenshot -d ~/pictures", NULL };
+static const char *screenshotwcmd[] = { "sh", "-c", "screenshot -w -d ~/pictures", NULL };
 
 /* multimedia keys */
 static const char *xf_calc[]        = { "galculator", NULL };
@@ -157,6 +158,7 @@ static Key keys[] = {
 	{ ControlMask,                  XK_period,  spawn,          {.v = nextsongcmd } },
 	{ ALTKEY|ControlMask,           XK_Delete,  spawn,          {.v = htopcmd } },
 	{ 0,                            XK_Print,   spawn,          {.v = screenshotcmd } },
+	{ ALTKEY,                       XK_Print,   spawn,          {.v = screenshotwcmd } },
 	{ MODKEY,                       XK_s,       togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_f,       togglemax,      {0} },
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
