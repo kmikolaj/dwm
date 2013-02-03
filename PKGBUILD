@@ -14,12 +14,9 @@ arch=('i686' 'x86_64')
 license=('MIT')
 options=(zipman)
 depends=('libx11' 'libxinerama')
-source=("${pkgname}-${pkgver}.tar.gz::http://hg.suckless.org/${pkgname}/archive/tip.tar.gz"
+source=("http://git.suckless.org/dwm/snapshot/dwm-1bdb393f81541506c9e7d8259855e30523b71238.tar.gz"
         "config.h"
         "dwm.desktop")
-md5sums=('f84f2e1bb846d8c08aa4729d5b6812a0'
-         '4ed1a2593b470a82811ceb75c4b56a22'
-         '939f403a71b6e85261d09fc3412269ee')
 
 build() {
     cd "${srcdir}" && cd "`find . -type d -name dwm-\*`"
@@ -45,7 +42,7 @@ build() {
     patch -Np1 < ../../18-dwm-6.1-save_floats.diff
     patch -Np1 < ../../19-dwm-6.1-systray.diff
     patch -Np1 < ../../20-dwm-6.1-centerwindow.diff
-    patch -Np1 < ../../21-dwm-6.1-attachaside.diff
+    patch -Np1 < ../../21-dwm-6.1-attach_normally.diff
     patch -Np1 < ../../22-dwm-6.1-moveresize.diff
     #patch -Np1 < ../../23-dwm-6.1-xft.diff
 
@@ -60,3 +57,6 @@ package() {
     install -m644 -D $srcdir/dwm.desktop $pkgdir/usr/share/xsessions/dwm.desktop
 }
 
+md5sums=('62a378744b5a96316cdda59b0453f33b'
+         '949e01b912f173086a06341d77b9beab'
+         '939f403a71b6e85261d09fc3412269ee')

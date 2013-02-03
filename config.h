@@ -43,7 +43,7 @@ static const Rule rules[] = {
 	{ "luakit",                 NULL,               NULL,               1 << 1,           False,       False,       -1 },
 	{ "Sublime_text",           NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Geany",                  NULL,               NULL,               1 << 2,           False,       False,       -1 },
-	{ "java-lang-Thread",       NULL,               "NetBeans IDE 6.1", 1 << 2,           False,       False,       -1 },
+	{ "Eclipse",                NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Gvim",                   NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Qtcreator",              NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Viewnior",               NULL,               NULL,               1 << 3,           False,       False,       -1 },
@@ -59,13 +59,13 @@ static const Rule rules[] = {
 	{ "Kadu",                   NULL,               NULL,               1 << 4,           False,       False,       -1 },
 	{ "Gimp",                   NULL,               NULL,               1 << 5,           False,       False,       -1 },
 	{ "Mtpaint",                NULL,               NULL,               1 << 5,           False,       False,       -1 },
-	{ "Xfe",                    NULL,               NULL,               1 << 6,           False,       False,       -1 },
-	{ "Lyx",                    NULL,               NULL,               1 << 6,           False,       False,       -1 },
-	{ "libreoffice-writer",     NULL,               NULL,               1 << 6,           False,       False,       -1 },
-	{ "libreoffice-calc",       NULL,               NULL,               1 << 6,           False,       False,       -1 },
-	{ "libreoffice-math",       NULL,               NULL,               1 << 6,           False,       False,       -1 },
-	{ "libreoffice-impress",    NULL,               NULL,               1 << 6,           False,       False,       -1 },
-	{ NULL,                     NULL,               "LibreOffice",      1 << 6,           False,       False,       -1 },
+	{ "Xfe",                    NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "Lyx",                    NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "libreoffice-writer",     NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "libreoffice-calc",       NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "libreoffice-math",       NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "libreoffice-impress",    NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ NULL,                     NULL,               "LibreOffice",      1 << 5,           False,       False,       -1 },
 };
 
 /* layout(s) */
@@ -91,14 +91,13 @@ static const Layout layouts[] = {
 };
 
 /* tagging */
-static const Tag tags[7] = {
+static const Tag tags[6] = {
 	/* name      layout             mfact    nmaster */
 	{ "sys",     &layouts[0],       -1,      -1 },
 	{ "web",     &layouts[1],       -1,      -1 },
 	{ "dev",     &layouts[3],       0.90,    -1 },
 	{ "ent",     &layouts[0],       -1,      -1 },
 	{ "msg",     &layouts[5],       0.80,    -1 },
-	{ "img",     &layouts[1],       -1,      -1 },
 	{ "etc",     &layouts[1],       -1,      -1 },
 };
 
@@ -129,6 +128,8 @@ static const char *scratchpadcmd[]  = { terminal, "-name", scratchpadname, "-geo
 static const char *lockcmd[]        = { "slimlock", NULL };
 static const char *nextsongcmd[]    = { "mpc", "next", NULL };
 static const char *prevsongcmd[]    = { "mpc", "prev", NULL };
+static const char *brightnessup[]   = { "brightness", "up", NULL };
+static const char *brightnessdown[] = { "brightness", "down", NULL };
 static const char *screenshotcmd[]  = { "sh", "-c", "screenshot -d ~/pictures", NULL };
 static const char *screenshotwcmd[] = { "sh", "-c", "screenshot -w -d ~/pictures", NULL };
 
@@ -141,8 +142,10 @@ static const char *xf_explorer[]    = { "spacefm", NULL };
 static const char *xf_favourites[]  = { "youtube-player", NULL };
 static const char *xf_mute[]        = { "amixer", "sset", "'Master'", "toggle", NULL };
 static const char *xf_play[]        = { "mpc", "toggle", NULL };
+static const char *xf_stop[]        = { "mpc", "stop", NULL };
 static const char *xf_volume_up[]   = { "amixer", "set", "'Master'", "playback", "1+", "unmute", NULL };
 static const char *xf_volume_down[] = { "amixer", "set", "'Master'", "playback", "1-", "unmute", NULL };
+static const char *xf_touchpad[] 	= { "touchpadtoggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key         function        argument */
@@ -154,8 +157,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_r,       spawn,          {.v = rangercmd } },
 	{ MODKEY,                       XK_w,       spawn,          {.v = torrentcmd } },
 	{ MODKEY,                       XK_F12,     spawn,          {.v = lockcmd } },
-	{ ControlMask,                  XK_comma,   spawn,          {.v = prevsongcmd } },
-	{ ControlMask,                  XK_period,  spawn,          {.v = nextsongcmd } },
+	{ ControlMask,                  XK_comma,   spawn,          {.v = brightnessdown } },
+	{ ControlMask,                  XK_period,  spawn,          {.v = brightnessup } },
 	{ ALTKEY|ControlMask,           XK_Delete,  spawn,          {.v = htopcmd } },
 	{ 0,                            XK_Print,   spawn,          {.v = screenshotcmd } },
 	{ ALTKEY,                       XK_Print,   spawn,          {.v = screenshotwcmd } },
@@ -217,12 +220,16 @@ static Key keys[] = {
 	{ 0,                            0x1008ff12, spawn,          {.v = xf_mute } },
  	{ 0,                            0x1008ff13, spawn,          {.v = xf_volume_up } },
 	{ 0,                            0x1008ff14, spawn,          {.v = xf_play } },
+	{ 0,                            0x1008ff15, spawn,          {.v = xf_stop } },
+	{ 0,                            0x1008ff16, spawn,          {.v = prevsongcmd } },
+	{ 0,                            0x1008ff17, spawn,          {.v = nextsongcmd } },
 	{ 0,                            0x1008ff18, spawn,          {.v = xf_homepage } },
 	{ 0,                            0x1008ff19, spawn,          {.v = xf_mail } },
 	{ 0,                            0x1008ff1d, spawn,          {.v = xf_calc } },
 	{ 0,                            0x1008ff30, spawn,          {.v = xf_favourites } },
 	{ 0,                            0x1008ff32, spawn,          {.v = xf_player } },
 	{ 0,                            0x1008ff33, spawn,          {.v = xf_explorer } },
+	{ 0,                            0x1008ffa9, spawn,          {.v = xf_touchpad } },
 };
 
 /* button definitions */

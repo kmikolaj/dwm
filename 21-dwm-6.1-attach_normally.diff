@@ -1,0 +1,48 @@
+--- a/dwm.c	2011-12-19 16:02:46.000000000 +0100
++++ b/dwm.c	2012-04-22 16:04:03.000000000 +0200
+@@ -153,6 +153,7 @@
+ static Bool applysizehints(Client *c, int *x, int *y, int *w, int *h, Bool interact);
+ static void arrange(void);
+ static void attach(Client *c);
++static void attachnormal(Client *c);
+ static void attachstack(Client *c);
+ static void buttonpress(XEvent *e);
+ static void checkotherwm(void);
+@@ -412,9 +413,26 @@
+ }
+
+ void
++attachnormal(Client *c) {
++        c->next = c->mon->clients;
++        c->mon->clients = c;
++}
++
++void
++insertclient(Client *c, Client *at) {
++       c->next = at->next;
++       at->next = c;
++}
++
++void
+ attach(Client *c) {
+-	c->next = c->mon->clients;
+-	c->mon->clients = c;
++        if(!c->mon->clients)
++                attachnormal(c);
++        else {
++                Client *at;
++                for(at = c->mon->clients; at->next; at = at->next);
++                insertclient(c, at);
++        }
+ }
+ 
+ void
+@@ -1282,7 +1300,7 @@
+ void
+ pop(Client *c) {
+ 	detach(c);
+-	attach(c);
++	attachnormal(c);
+ 	focus(c);
+ 	arrange(c->mon);
+ }
