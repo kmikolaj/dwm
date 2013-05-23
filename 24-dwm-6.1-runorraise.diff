@@ -1,0 +1,41 @@
+--- a/dwm.c	2013-02-21 18:15:42.000000000 +0100
++++ b/dwm.c	2013-02-21 18:15:01.000000000 +0100
+@@ -318,6 +318,7 @@
+ static Client *wintosystrayicon(Window w);
+ static void centerwindow(const Arg *arg);
+ static void moveresize(const Arg *arg);
++static void runorraise(const Arg *arg);
+ 
+ /* variables */
+ static const char broken[] = "broken";
+@@ -2984,6 +2985,30 @@
+ 
+ }
+ 
++void
++runorraise(const Arg *arg) {
++	const char **app = (const char **)arg->v;
++	Arg a = { .ui = ~0 };
++	Monitor *mon;
++	Client *c;
++	XClassHint hint = { NULL, NULL };
++
++	/* Tries to find the client */
++	for (mon = mons; mon; mon = mon->next) {
++		for (c = mon->clients; c; c = c->next) {
++			XGetClassHint(dpy, c->win, &hint);
++			if (hint.res_name && strcmp(app[2], hint.res_name) == 0) {
++				a.ui = c->tags;
++				view(&a);
++				focus(c);
++				return;
++			}
++		}
++	}
++	/* Client not found: spawn it */
++	spawn(arg);
++}
++
+ int
+ main(int argc, char *argv[]) {
+ 	if(argc == 2 && !strcmp("-v", argv[1]))

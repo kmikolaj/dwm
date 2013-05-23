@@ -52,9 +52,9 @@ Homepage: http://hg.punctweb.ro
  	}
 -	dc.w = blw = TEXTW(m->ltsymbol);
 -	drawtext(m->ltsymbol, dc.norm, False);
-+	//dc.w = blw = TEXTW(m->ltsymbol);
++	dc.w = blw = TEXTW(m->ltsymbol);
 +	//drawtext(m->ltsymbol, dc.colors[0], True);
-+	dc.w = blw = textnw(m->ltsymbol, strlen(m->ltsymbol));
++	//dc.w = blw = textnw(m->ltsymbol, strlen(m->ltsymbol));
 +	drawtext(m->ltsymbol, dc.colors[0], False);
  	dc.x += dc.w;
  	x = dc.x;

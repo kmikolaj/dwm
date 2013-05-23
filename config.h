@@ -2,7 +2,8 @@
 
 /* appearance */
 static const char font[]            = "-*-stlarch-*-*-*-*-12-*-*-*-*-*-*-*" "," "-*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1";
-//static const char font[]            = "xft:Envy Code R:pixelsize=13";
+//static const char font[]            = "xft:Envy Code R:pixelsize=11";
+//static const char font[]            = "xft:Dejavu Sans Mono:medium:size=10";
 static const char colors[MAXCOLORS][ColLast][8] = {
 	{ "#444444", "#839496", "#073642" }, /* 1 = normal */
 	{ "#B58900", "#FDF6E3", "#073642" }, /* 2 = selected */
@@ -39,9 +40,10 @@ static const Rule rules[] = {
 	{ "Firefox",                NULL,               NULL,               1 << 1,           True,        True,        -1 },
 	{ "Firefox",                "Navigator",        NULL,               1 << 1,           False,       False,       -1 },
 	{ "Opera",                  NULL,               NULL,               1 << 1,           False,       False,       -1 },
+	{ "Chromium",               NULL,               NULL,               1 << 1,           False,       False,       -1 },
 	{ "Dwb",                    NULL,               NULL,               1 << 1,           False,       False,       -1 },
 	{ "luakit",                 NULL,               NULL,               1 << 1,           False,       False,       -1 },
-	{ "Sublime_text",           NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "sublime-text",           NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Geany",                  NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Eclipse",                NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Gvim",                   NULL,               NULL,               1 << 2,           False,       False,       -1 },
@@ -117,6 +119,8 @@ static const Tag tags[6] = {
 static const char terminal[]        = "urxvtc";
 static const char scratchpadname[]  = "scratchpad";
 static const char *dmenucmd[]       = { "dmenu_run", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
+static const char *dlocatecmd[]     = { "dlocate", "-l", "10", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
+static const char *quitcmd[]        = { "dmenu_quit", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
 static const char *termcmd[]        = { terminal, NULL };
 static const char *tabbedtermcmd[]  = { terminal, "-pe", "tabbed", NULL };
 static const char *tmuxcmd[]        = { terminal, "-name", "tmux", "-e", "sh", "-c", "atmux", NULL };
@@ -150,10 +154,12 @@ static const char *xf_touchpad[] 	= { "touchpadtoggle", NULL };
 static Key keys[] = {
 	/* modifier                     key         function        argument */
 	{ MODKEY,                       XK_z,       spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_q,       spawn,          {.v = dlocatecmd } },
+	{ MODKEY|ShiftMask,             XK_l,       spawn,          {.v = quitcmd } },
 	{ MODKEY|ShiftMask,             XK_c,       spawn,          {.v = tabbedtermcmd } },
 	{ MODKEY,                       XK_c,       spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_x,       spawn,          {.v = tmuxcmd } },
-	{ MODKEY,                       XK_a,       spawn,          {.v = musiccmd } },
+	{ MODKEY,                       XK_a,       runorraise,     {.v = musiccmd } },
 	{ MODKEY,                       XK_r,       spawn,          {.v = rangercmd } },
 	{ MODKEY,                       XK_w,       spawn,          {.v = torrentcmd } },
 	{ MODKEY,                       XK_F12,     spawn,          {.v = lockcmd } },
@@ -218,14 +224,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_y,       moveresize,     {.v = (int []){ 0, 0, -25, 0 } } },
 	{ 0,                            0x1008ff11, spawn,          {.v = xf_volume_down } },
 	{ 0,                            0x1008ff12, spawn,          {.v = xf_mute } },
- 	{ 0,                            0x1008ff13, spawn,          {.v = xf_volume_up } },
+	{ 0,                            0x1008ff13, spawn,          {.v = xf_volume_up } },
 	{ 0,                            0x1008ff14, spawn,          {.v = xf_play } },
 	{ 0,                            0x1008ff15, spawn,          {.v = xf_stop } },
 	{ 0,                            0x1008ff16, spawn,          {.v = prevsongcmd } },
 	{ 0,                            0x1008ff17, spawn,          {.v = nextsongcmd } },
 	{ 0,                            0x1008ff18, spawn,          {.v = xf_homepage } },
-	{ 0,                            0x1008ff19, spawn,          {.v = xf_mail } },
+	{ 0,                            0x1008ff19, runorraise,     {.v = xf_mail } },
 	{ 0,                            0x1008ff1d, spawn,          {.v = xf_calc } },
+	{ 0,                            0x1008ff2e, spawn,          {.v = xf_homepage } },
 	{ 0,                            0x1008ff30, spawn,          {.v = xf_favourites } },
 	{ 0,                            0x1008ff32, spawn,          {.v = xf_player } },
 	{ 0,                            0x1008ff33, spawn,          {.v = xf_explorer } },

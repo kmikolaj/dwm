@@ -15,8 +15,10 @@ license=('MIT')
 options=(zipman)
 depends=('libx11' 'libxinerama')
 source=("http://git.suckless.org/dwm/snapshot/dwm-1bdb393f81541506c9e7d8259855e30523b71238.tar.gz"
-        "config.h"
         "dwm.desktop")
+
+md5sums=('62a378744b5a96316cdda59b0453f33b'
+         '939f403a71b6e85261d09fc3412269ee')
 
 build() {
     cd "${srcdir}" && cd "`find . -type d -name dwm-\*`"
@@ -44,7 +46,9 @@ build() {
     patch -Np1 < ../../20-dwm-6.1-centerwindow.diff
     patch -Np1 < ../../21-dwm-6.1-attach_normally.diff
     patch -Np1 < ../../22-dwm-6.1-moveresize.diff
-    #patch -Np1 < ../../23-dwm-6.1-xft.diff
+	#patch -Np1 < ../../23-dwm-6.1-xft.diff
+    patch -Np1 < ../../24-dwm-6.1-runorraise.diff
+	#patch -Np1 < ../../25-dwm-6.1-mouse.diff
 
     make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
@@ -57,6 +61,3 @@ package() {
     install -m644 -D $srcdir/dwm.desktop $pkgdir/usr/share/xsessions/dwm.desktop
 }
 
-md5sums=('62a378744b5a96316cdda59b0453f33b'
-         '949e01b912f173086a06341d77b9beab'
-         '939f403a71b6e85261d09fc3412269ee')
