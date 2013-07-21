@@ -153,9 +153,9 @@ static const char *xf_touchpad[] 	= { "touchpadtoggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key         function        argument */
-	{ MODKEY,                       XK_z,       spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_q,       spawn,          {.v = dlocatecmd } },
-	{ MODKEY|ShiftMask,             XK_l,       spawn,          {.v = quitcmd } },
+	{ MODKEY,                       XK_z,       dmenuspawn,     {.v = dmenucmd } },
+	{ MODKEY,                       XK_q,       dmenuspawn,     {.v = dlocatecmd } },
+	{ MODKEY|ShiftMask,             XK_l,       dmenuspawn,     {.v = quitcmd } },
 	{ MODKEY|ShiftMask,             XK_c,       spawn,          {.v = tabbedtermcmd } },
 	{ MODKEY,                       XK_c,       spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_x,       spawn,          {.v = tmuxcmd } },

@@ -46,9 +46,10 @@ build() {
     patch -Np1 < ../../20-dwm-6.1-centerwindow.diff
     patch -Np1 < ../../21-dwm-6.1-attach_normally.diff
     patch -Np1 < ../../22-dwm-6.1-moveresize.diff
-	#patch -Np1 < ../../23-dwm-6.1-xft.diff
+    #patch -Np1 < ../../23-dwm-6.1-xft.diff
     patch -Np1 < ../../24-dwm-6.1-runorraise.diff
-	#patch -Np1 < ../../25-dwm-6.1-mouse.diff
+    #patch -Np1 < ../../25-dwm-6.1-mouse.diff
+    patch -Np1 < ../../26-dwm-6.1-dmenu.diff
 
     make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
