@@ -47,7 +47,7 @@ static const Rule rules[] = {
 	{ "Geany",                  NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Eclipse",                NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Gvim",                   NULL,               NULL,               1 << 2,           False,       False,       -1 },
-	{ "Qtcreator",              NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "QtCreator",              NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Viewnior",               NULL,               NULL,               1 << 3,           False,       False,       -1 },
 	{ "Mirage",                 NULL,               NULL,               1 << 3,           False,       False,       -1 },
 	{ "Geeqie",                 NULL,               NULL,               1 << 3,           False,       False,       -1 },
@@ -68,6 +68,7 @@ static const Rule rules[] = {
 	{ "libreoffice-math",       NULL,               NULL,               1 << 5,           False,       False,       -1 },
 	{ "libreoffice-impress",    NULL,               NULL,               1 << 5,           False,       False,       -1 },
 	{ NULL,                     NULL,               "LibreOffice",      1 << 5,           False,       False,       -1 },
+	{ "Calibre-gui",            NULL,               NULL,               1 << 5,           False,       False,       -1 }
 };
 
 /* layout(s) */
@@ -147,8 +148,8 @@ static const char *xf_favourites[]  = { "youtube-player", NULL };
 static const char *xf_mute[]        = { "amixer", "sset", "'Master'", "toggle", NULL };
 static const char *xf_play[]        = { "mpc", "toggle", NULL };
 static const char *xf_stop[]        = { "mpc", "stop", NULL };
-static const char *xf_volume_up[]   = { "amixer", "set", "'Master'", "playback", "1+", "unmute", NULL };
-static const char *xf_volume_down[] = { "amixer", "set", "'Master'", "playback", "1-", "unmute", NULL };
+static const char *xf_volume_up[]   = { "amixer", "set", "'Master'", "playback", "3%+", "unmute", NULL };
+static const char *xf_volume_down[] = { "amixer", "set", "'Master'", "playback", "3%-", "unmute", NULL };
 static const char *xf_touchpad[] 	= { "touchpadtoggle", NULL };
 
 static Key keys[] = {
