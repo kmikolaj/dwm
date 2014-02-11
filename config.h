@@ -68,7 +68,8 @@ static const Rule rules[] = {
 	{ "libreoffice-math",       NULL,               NULL,               1 << 5,           False,       False,       -1 },
 	{ "libreoffice-impress",    NULL,               NULL,               1 << 5,           False,       False,       -1 },
 	{ NULL,                     NULL,               "LibreOffice",      1 << 5,           False,       False,       -1 },
-	{ "Calibre-gui",            NULL,               NULL,               1 << 5,           False,       False,       -1 }
+	{ "Calibre-gui",            NULL,               NULL,               1 << 5,           False,       False,       -1 },
+	{ "sigil",                  NULL,               NULL,               1 << 5,           False,       False,       -1 }
 };
 
 /* layout(s) */
@@ -122,6 +123,7 @@ static const char scratchpadname[]  = "scratchpad";
 static const char *dmenucmd[]       = { "dmenu_run", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
 static const char *dlocatecmd[]     = { "dlocate", "-l", "10", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
 static const char *quitcmd[]        = { "dmenu_quit", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
+static const char *umountcmd[]      = { "dmenu_umount", "-b", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[8][ColFG], "-sf", colors[8][ColBG], NULL };
 static const char *termcmd[]        = { terminal, NULL };
 static const char *tabbedtermcmd[]  = { terminal, "-pe", "tabbed", NULL };
 static const char *tmuxcmd[]        = { terminal, "-name", "tmux", "-e", "sh", "-c", "atmux", NULL };
@@ -157,6 +159,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_z,       dmenuspawn,     {.v = dmenucmd } },
 	{ MODKEY,                       XK_q,       dmenuspawn,     {.v = dlocatecmd } },
 	{ MODKEY|ShiftMask,             XK_l,       dmenuspawn,     {.v = quitcmd } },
+	{ MODKEY,                       XK_m,       dmenuspawn,     {.v = umountcmd } },
 	{ MODKEY|ShiftMask,             XK_c,       spawn,          {.v = tabbedtermcmd } },
 	{ MODKEY,                       XK_c,       spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_x,       spawn,          {.v = tmuxcmd } },

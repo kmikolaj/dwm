@@ -8,7 +8,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -2984,6 +2985,30 @@
+@@ -2984,6 +2985,31 @@
  
  }
  
@@ -28,6 +28,7 @@
 +				a.ui = c->tags;
 +				view(&a);
 +				focus(c);
++				XRaiseWindow(dpy, c->win);
 +				return;
 +			}
 +		}
@@ -38,4 +39,4 @@
 +
  int
  main(int argc, char *argv[]) {
- 	if(argc == 2 && !strcmp("-v", argv[1]))
+	if(argc == 2 && !strcmp("-v", argv[1]))
