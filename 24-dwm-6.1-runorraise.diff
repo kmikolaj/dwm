@@ -8,7 +8,7 @@
  
  /* variables */
  static const char broken[] = "broken";
-@@ -2984,6 +2985,31 @@
+@@ -2984,6 +2985,35 @@
  
  }
  
@@ -26,6 +26,10 @@
 +			XGetClassHint(dpy, c->win, &hint);
 +			if (hint.res_name && strcmp(app[2], hint.res_name) == 0) {
 +				a.ui = c->tags;
++				if(c->mon != selmon) {
++					unfocus(selmon->sel, False);
++					selmon = c->mon;
++				}
 +				view(&a);
 +				focus(c);
 +				XRaiseWindow(dpy, c->win);

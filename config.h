@@ -46,7 +46,9 @@ static const Rule rules[] = {
 	{ "sublime-text",           NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Geany",                  NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Eclipse",                NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "jetbrains-idea-ce",      NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Gvim",                   NULL,               NULL,               1 << 2,           False,       False,       -1 },
+	{ "Atom",                   NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "QtCreator",              NULL,               NULL,               1 << 2,           False,       False,       -1 },
 	{ "Viewnior",               NULL,               NULL,               1 << 3,           False,       False,       -1 },
 	{ "Mirage",                 NULL,               NULL,               1 << 3,           False,       False,       -1 },
@@ -156,7 +158,7 @@ static const char *xf_touchpad[] 	= { "touchpadtoggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key         function        argument */
-	{ MODKEY,                       XK_z,       dmenuspawn,     {.v = dmenucmd } },
+	{ MODKEY,                       XK_F2,      dmenuspawn,     {.v = dmenucmd } },
 	{ MODKEY,                       XK_q,       dmenuspawn,     {.v = dlocatecmd } },
 	{ MODKEY|ShiftMask,             XK_l,       dmenuspawn,     {.v = quitcmd } },
 	{ MODKEY,                       XK_m,       dmenuspawn,     {.v = umountcmd } },
